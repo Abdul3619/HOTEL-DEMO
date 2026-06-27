@@ -1,0 +1,6 @@
+{
+  "name": "Azure Haven Hotel",
+  "description": "Premium luxury hotel website with cinematic design, interactive booking, and glassmorphism UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
