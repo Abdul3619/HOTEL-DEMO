@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState } from 'react';
 import { LanguageProvider } from './i18n';
 import { BookingProvider } from './context/BookingContext';
 import Navbar from './components/Navbar';
@@ -19,12 +20,16 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ChatWidget from './components/ChatWidget';
 import FadeInSection from './components/FadeInSection';
+import ThemeCustomizer from './components/ThemeCustomizer';
+import AdminDashboardMockup from './components/AdminDashboardMockup';
 
 export default function App() {
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+
   return (
     <LanguageProvider>
       <BookingProvider>
-        <div className="bg-[#0B0B0B] text-[#D9D9D9] min-h-screen font-sans selection:bg-[#D4AF37] selection:text-[#0B0B0B] flex flex-col lg:flex-row">
+        <div className="bg-[#0B0B0B] text-[#D9D9D9] min-h-screen font-sans selection:bg-[#D4AF37] selection:text-[#0B0B0B] flex flex-col lg:flex-row relative">
           <Navbar />
           <main className="flex-1 flex flex-col w-full">
             <Hero />
@@ -40,6 +45,8 @@ export default function App() {
             <FadeInSection><Footer /></FadeInSection>
           </main>
           <ChatWidget />
+          <ThemeCustomizer onOpenAdmin={() => setIsAdminOpen(true)} />
+          <AdminDashboardMockup isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
         </div>
       </BookingProvider>
     </LanguageProvider>

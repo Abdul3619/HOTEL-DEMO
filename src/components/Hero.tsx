@@ -26,7 +26,7 @@ export default function Hero() {
             className="w-full h-full object-cover opacity-70"
             poster="https://images.unsplash.com/photo-1542314831-c6a4d1409e1c?q=80&w=2000&auto=format&fit=crop"
           >
-            <source src="https://cdn.coverr.co/videos/coverr-a-beautiful-resort-with-a-pool-2277/1080p.mp4" type="video/mp4" />
+            <source src="/hero-video.mp4" type="video/mp4" />
           </video>
         </motion.div>
 

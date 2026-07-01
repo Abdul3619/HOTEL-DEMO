@@ -71,14 +71,38 @@ export const amenitiesList = [
 ];
 
 export const galleryImages = [
-  'https://images.unsplash.com/photo-1542314831-c6a4d1409e1c?q=80&w=2000&auto=format&fit=crop', // Hotel Exterior
-  'https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=2000&auto=format&fit=crop', // Lobby
-  'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2000&auto=format&fit=crop', // Suite
-  'https://images.unsplash.com/photo-1582604626352-25114777dd56?q=80&w=2000&auto=format&fit=crop', // Pool
-  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000&auto=format&fit=crop', // Restaurant
-  'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2000&auto=format&fit=crop', // Spa
-  'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=2000&auto=format&fit=crop', // Events
-  'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?q=80&w=2000&auto=format&fit=crop'  // Night views
+  {
+    src: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Luxury Exterior', fr: 'Extérieur de Luxe' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Grand Lobby', fr: 'Grand Hall' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Presidential Suite', fr: 'Suite Présidentielle' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Infinity Pool', fr: 'Piscine à Débordement' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Fine Dining', fr: 'Gastronomie' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Holistic Spa', fr: 'Spa Holistique' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Elegant Bathroom', fr: 'Salle de Bain Élégante' }
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=2000&auto=format&fit=crop',
+    caption: { en: 'Ocean View Balcony', fr: 'Balcon Vue Océan' }
+  }
 ];
 
 export const testimonials = [
