@@ -33,6 +33,12 @@ export default function ChatWidget() {
   }, [isOpen, messages.length, t]);
 
   useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener('open-concierge-chat', open);
+    return () => window.removeEventListener('open-concierge-chat', open);
+  }, []);
+
+  useEffect(() => {
     // Scroll to bottom when new messages arrive
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
@@ -109,6 +115,7 @@ export default function ChatWidget() {
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
+                aria-label="Close chat"
                 className="text-[#D9D9D9]/50 hover:text-[#D4AF37] transition-colors p-2"
               >
                 <X className="w-5 h-5" />
@@ -161,6 +168,7 @@ export default function ChatWidget() {
               className="p-4 bg-[#0B0B0B] border-t border-white/5 flex items-end space-x-2"
             >
               <textarea
+                aria-label={t('chatPlaceholder')}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => {
@@ -176,6 +184,7 @@ export default function ChatWidget() {
               />
               <button
                 type="submit"
+                aria-label="Send message"
                 disabled={!inputValue.trim()}
                 className="w-11 h-11 bg-[#D4AF37] hover:bg-[#F5F2EB] disabled:bg-[#D4AF37]/30 disabled:text-black/30 text-[#0B0B0B] rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
               >
