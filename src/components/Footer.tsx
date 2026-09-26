@@ -83,7 +83,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-brand-ivory/10 flex flex-col md:flex-row justify-between items-center text-xs text-brand-ivory/40">
-          <p>&copy; {new Date().getFullYear()} Azure Haven Hotel. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Azure Haven Hotel. All rights reserved. Reviews shown are sample content.</p>
           <a 
             href="https://wa.me/22871606697" 
             target="_blank" 
