@@ -1,20 +1,22 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Azure Haven Hotel (template)
 
-# Run and deploy your AI Studio app
+Luxury hotel website template (English / French) with room search, a concierge chat demo, a brand customizer ("Demo Tools") and an admin dashboard mockup for pitching to hotel clients.
 
-This contains everything you need to run your app locally.
+This is a front-end demo: room availability is simulated, the chat replies are canned, the contact and newsletter forms don't send anything, and the admin dashboard shows sample data. Connecting a real booking engine, email service or database is a separate piece of work.
 
-View your app in AI Studio: https://ai.studio/apps/1c422dfc-1cb3-47ec-a81b-68a325e29e2d
+## Stack
 
-## Run Locally
+React 19, Vite, Tailwind CSS 4, Motion. The page is prerendered at build time (`src/entry-server.tsx` + `scripts/prerender.mjs`), so `dist/index.html` contains the full page content; the browser then hydrates it.
 
-**Prerequisites:**  Node.js
+## Development
 
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build in dist/
+npm run lint     # type-check
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Deployment
+
+Static site. Framework: Vite · Build command: `npm run build` · Output directory: `dist`. No environment variables are required.

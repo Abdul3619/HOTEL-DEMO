@@ -4,19 +4,48 @@ import { useLanguage } from '../i18n';
 import { useBooking } from '../context/BookingContext';
 import { Calendar, Users, CheckCircle2 } from 'lucide-react';
 
+// yyyy-mm-dd for today in the visitor's local time (matches <input type="date"> values)
+export function todayInputValue() {
+  const now = new Date();
+  return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+}
+
+// Today's date, set after mount so prerendered HTML (built on another day) and the first client render match
+export function useToday() {
+  const [today, setToday] = useState('');
+  useEffect(() => setToday(todayInputValue()), []);
+  return today;
+}
+
+// Guest count fields can be cleared while typing; never store NaN
+function guestCount(value: string, min: number) {
+  const n = parseInt(value, 10);
+  return Number.isNaN(n) ? min : Math.min(10, Math.max(min, n));
+}
+
 export default function Booking() {
   const { t, language } = useLanguage();
   const { searchData, updateSearchData, getAvailableRooms } = useBooking();
   const [step, setStep] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const today = useToday();
 
   // If searchData changes significantly externally, reset to step 1 (optional)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchData.checkIn && searchData.checkOut) {
-      setStep(2);
+    if (!searchData.checkIn || !searchData.checkOut) return;
+    if (searchData.checkIn < todayInputValue()) {
+      setError(language === 'fr' ? "La date d'arrivée ne peut pas être dans le passé." : 'The check-in date cannot be in the past.');
+      return;
     }
+    if (searchData.checkOut <= searchData.checkIn) {
+      setError(language === 'fr' ? "La date de départ doit être postérieure à la date d'arrivée." : 'The check-out date must be after the check-in date.');
+      return;
+    }
+    setError(null);
+    setStep(2);
   };
 
   const availableRooms = getAvailableRooms();
@@ -58,12 +87,14 @@ export default function Booking() {
                 <form onSubmit={handleSearch} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-xs tracking-widest text-brand-gold uppercase">{t('checkIn')}</label>
+                      <label htmlFor="booking-checkin" className="text-xs tracking-widest text-brand-gold uppercase">{t('checkIn')}</label>
                       <div className="flex items-center border-b border-brand-ivory/30 pb-3 focus-within:border-brand-gold transition-colors">
                         <Calendar className="w-5 h-5 mr-3 text-brand-ivory/50" />
                         <input 
                           type="date" 
                           required
+                          id="booking-checkin"
+                          min={today || undefined}
                           value={searchData.checkIn}
                           onChange={e => updateSearchData({ checkIn: e.target.value })}
                           className="bg-transparent text-brand-white w-full focus:outline-none [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" 
@@ -72,12 +103,14 @@ export default function Booking() {
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="text-xs tracking-widest text-brand-gold uppercase">{t('checkOut')}</label>
+                      <label htmlFor="booking-checkout" className="text-xs tracking-widest text-brand-gold uppercase">{t('checkOut')}</label>
                       <div className="flex items-center border-b border-brand-ivory/30 pb-3 focus-within:border-brand-gold transition-colors">
                         <Calendar className="w-5 h-5 mr-3 text-brand-ivory/50" />
                         <input 
                           type="date" 
                           required
+                          id="booking-checkout"
+                          min={searchData.checkIn || today || undefined}
                           value={searchData.checkOut}
                           onChange={e => updateSearchData({ checkOut: e.target.value })}
                           className="bg-transparent text-brand-white w-full focus:outline-none [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" 
@@ -86,34 +119,37 @@ export default function Booking() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs tracking-widest text-brand-gold uppercase">{t('adults')}</label>
+                      <label htmlFor="booking-adults" className="text-xs tracking-widest text-brand-gold uppercase">{t('adults')}</label>
                       <div className="flex items-center border-b border-brand-ivory/30 pb-3 focus-within:border-brand-gold transition-colors">
                         <Users className="w-5 h-5 mr-3 text-brand-ivory/50" />
                         <input 
                           type="number" 
                           min="1" max="10"
                           value={searchData.adults}
-                          onChange={e => updateSearchData({ adults: parseInt(e.target.value) })}
+                          id="booking-adults"
+                          onChange={e => updateSearchData({ adults: guestCount(e.target.value, 1) })}
                           className="bg-transparent text-brand-white w-full focus:outline-none" 
                         />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs tracking-widest text-brand-gold uppercase">{t('children')}</label>
+                      <label htmlFor="booking-children" className="text-xs tracking-widest text-brand-gold uppercase">{t('children')}</label>
                       <div className="flex items-center border-b border-brand-ivory/30 pb-3 focus-within:border-brand-gold transition-colors">
                         <Users className="w-5 h-5 mr-3 text-brand-ivory/50" />
                         <input 
                           type="number" 
                           min="0" max="10"
                           value={searchData.children}
-                          onChange={e => updateSearchData({ children: parseInt(e.target.value) })}
+                          id="booking-children"
+                          onChange={e => updateSearchData({ children: guestCount(e.target.value, 0) })}
                           className="bg-transparent text-brand-white w-full focus:outline-none" 
                         />
                       </div>
                     </div>
                   </div>
 
+                  {error && <p role="alert" className="text-sm text-red-400 text-center">{error}</p>}
                   <div className="pt-8 flex justify-center">
                     <button type="submit" className="px-12 py-4 bg-brand-gold text-brand-dark text-sm tracking-widest uppercase font-medium hover:bg-brand-white transition-colors duration-300 w-full md:w-auto">
                       {t('searchAvailability')}

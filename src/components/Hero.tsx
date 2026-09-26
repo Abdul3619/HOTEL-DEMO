@@ -2,11 +2,12 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useLanguage } from '../i18n';
 import { useBooking } from '../context/BookingContext';
 import { Calendar, Users, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { useToday } from './Booking';
 
 export default function Hero() {
   const { t } = useLanguage();
   const { searchData, updateSearchData } = useBooking();
+  const today = useToday();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 300]);
   const opacity = useTransform(scrollY, [0, 800], [1, 0]);
@@ -83,6 +84,8 @@ export default function Hero() {
                 <Calendar className="w-4 h-4 mr-2 text-[#D9D9D9]/70" />
                 <input 
                   type="date" 
+                  aria-label={t('checkIn')}
+                  min={today || undefined}
                   value={searchData.checkIn}
                   onChange={(e) => updateSearchData({ checkIn: e.target.value })}
                   className="bg-transparent text-white w-full focus:outline-none placeholder-white/50 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" 
@@ -98,6 +101,8 @@ export default function Hero() {
                 <Calendar className="w-4 h-4 mr-2 text-[#D9D9D9]/70" />
                 <input 
                   type="date" 
+                  aria-label={t('checkOut')}
+                  min={searchData.checkIn || today || undefined}
                   value={searchData.checkOut}
                   onChange={(e) => updateSearchData({ checkOut: e.target.value })}
                   className="bg-transparent text-white w-full focus:outline-none [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" 

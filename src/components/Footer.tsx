@@ -1,6 +1,15 @@
+import { useState, type FormEvent } from 'react';
 import { Facebook, Instagram, Twitter, Youtube, Sparkles } from 'lucide-react';
 
 export default function Footer() {
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.currentTarget.reset();
+    setSubscribed(true);
+  };
+
   return (
     <footer className="bg-brand-dark pt-24 pb-12 border-t border-brand-ivory/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -14,16 +23,16 @@ export default function Footer() {
               Experience unparalleled luxury and breathtaking views at our world-class resort. Your perfect escape awaits.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
+              <a href="#" aria-label="Instagram" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
+              <a href="#" aria-label="Facebook" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
+              <a href="#" aria-label="Twitter" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
                 <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
+              <a href="#" aria-label="Youtube" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
                 <Youtube className="w-4 h-4" />
               </a>
             </div>
@@ -55,15 +64,20 @@ export default function Footer() {
             <p className="text-brand-ivory/60 text-sm font-light leading-relaxed mb-4">
               Subscribe to receive exclusive offers and updates.
             </p>
-            <form className="flex flex-col space-y-4">
+            <form className="flex flex-col space-y-4" onSubmit={handleSubscribe}>
               <input 
                 type="email" 
+                required
+                aria-label="Email Address" 
                 placeholder="Email Address" 
                 className="w-full bg-brand-white/5 border border-brand-ivory/20 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-gold transition-colors"
               />
               <button type="submit" className="w-full py-3 bg-brand-gold text-brand-dark text-xs tracking-widest uppercase font-medium hover:bg-brand-white transition-colors duration-300">
                 Subscribe
               </button>
+              {subscribed && (
+                <p role="status" className="text-xs text-brand-gold">Thank you for subscribing! (Demo site: no emails are sent.)</p>
+              )}
             </form>
           </div>
         </div>
