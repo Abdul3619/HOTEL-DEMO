@@ -1,6 +1,6 @@
 # Azure Haven Hotel (template)
 
-Luxury hotel website template (English / French) with room search, a concierge chat demo, a brand customizer ("Demo Tools") and an admin dashboard mockup for pitching to hotel clients.
+I built this luxury hotel website template (English / French) to pitch to hotel clients. It has room search, a concierge chat demo, a brand customizer ("Demo Tools") and an admin dashboard mockup.
 
 This is a front-end demo: room availability is simulated, the chat replies are canned, the contact and newsletter forms don't send anything, and the admin dashboard shows sample data. Connecting a real booking engine, email service or database is a separate piece of work.
 

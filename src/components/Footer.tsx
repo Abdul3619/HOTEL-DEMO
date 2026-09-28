@@ -88,10 +88,10 @@ export default function Footer() {
             href="https://wa.me/22871606697" 
             target="_blank" 
             rel="noopener noreferrer"
-            title="Need a website like this? Contact the designer."
+            title="Need a website like this? Contact the developer."
             className="mt-4 md:mt-0 flex items-center space-x-1.5 text-[13px] text-white/60 hover:text-[#D4AF37] transition-colors duration-300 group"
           >
-            <span>Designed by Abdulwahab Abdullahi</span>
+            <span>Built by Abdulwahab Abdullahi</span>
             <Sparkles className="w-3 h-3 opacity-70 group-hover:opacity-100" />
           </a>
         </div>
