@@ -22,6 +22,7 @@ import ChatWidget from './components/ChatWidget';
 import FadeInSection from './components/FadeInSection';
 import ThemeCustomizer from './components/ThemeCustomizer';
 import AdminDashboardMockup from './components/AdminDashboardMockup';
+import LegalDialog from './components/LegalDialog';
 
 export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -47,6 +48,7 @@ export default function App() {
           <ChatWidget />
           <ThemeCustomizer onOpenAdmin={() => setIsAdminOpen(true)} />
           <AdminDashboardMockup isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
+          <LegalDialog />
         </div>
       </BookingProvider>
     </LanguageProvider>

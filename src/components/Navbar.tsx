@@ -25,6 +25,7 @@ export default function Navbar() {
     { name: t('rooms'), href: '#rooms' },
     { name: t('amenities'), href: '#amenities' },
     { name: t('dining'), href: '#dining' },
+    { name: t('offersTitle'), href: '#offers' },
     { name: t('gallery'), href: '#gallery' },
     { name: t('contact'), href: '#contact' },
   ];
@@ -51,7 +52,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[#D9D9D9]/50 hover:text-[#D4AF37] hover:border-l-2 hover:border-[#D4AF37] hover:pl-4 pl-0 transition-all duration-300"
+                className="text-[#D9D9D9]/80 hover:text-[#D4AF37] hover:border-l-2 hover:border-[#D4AF37] hover:pl-4 pl-0 transition-all duration-300"
               >
                 {link.name}
               </a>
@@ -70,11 +71,11 @@ export default function Navbar() {
           <div className="flex gap-4 text-[10px] font-bold">
             <button 
               onClick={() => setLanguage('fr')}
-              className={`cursor-pointer transition-colors ${language === 'fr' ? 'text-[#D4AF37]' : 'text-[#D9D9D9]/30 hover:text-[#D9D9D9]/80'}`}
+              className={`cursor-pointer transition-colors ${language === 'fr' ? 'text-[#D4AF37]' : 'text-[#D9D9D9]/75 hover:text-white'}`}
             >FR</button>
             <button 
               onClick={() => setLanguage('en')}
-              className={`cursor-pointer transition-colors ${language === 'en' ? 'text-[#D4AF37]' : 'text-[#D9D9D9]/30 hover:text-[#D9D9D9]/80'}`}
+              className={`cursor-pointer transition-colors ${language === 'en' ? 'text-[#D4AF37]' : 'text-[#D9D9D9]/75 hover:text-white'}`}
             >EN</button>
           </div>
         </div>

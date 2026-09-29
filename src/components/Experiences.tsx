@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useLanguage } from '../i18n';
 import { Palmtree, Wind, Glasses, Flame } from 'lucide-react';
+import SmartImg from './SmartImg';
 
 export default function Experiences() {
   const { t, language } = useLanguage();
@@ -71,9 +72,10 @@ export default function Experiences() {
                 <div className="absolute inset-0 bg-brand-dark/40 group-hover:bg-brand-dark/10 transition-colors duration-500 z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-10" />
                 
-                <img 
-                  src={exp.image} 
+                <SmartImg
+                  src={exp.image}
                   alt={exp.title[language] || exp.title['en']}
+                  sizes="(min-width: 768px) 33vw, 100vw"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
                 

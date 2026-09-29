@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 export type Language = 'en' | 'fr';
 
@@ -101,7 +101,18 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en'); // Default to English
+  // English by default (matches the prerendered page); a saved choice is applied after hydration.
+  const [language, setLanguageState] = useState<Language>('en');
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('azure:lang');
+      if (saved === 'en' || saved === 'fr') setLanguageState(saved);
+    } catch { /* storage unavailable */ }
+  }, []);
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    try { localStorage.setItem('azure:lang', lang); } catch { /* ignore */ }
+  };
 
   const t = (key: string, params?: Record<string, string | number>): string => {
     const translationInfo = translations[key];
