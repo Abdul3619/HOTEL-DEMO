@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useLanguage } from '../i18n';
 import { amenitiesList } from '../data';
+import IllustrativeBadge from './IllustrativeBadge';
 
 export default function Amenities() {
   const { t, language } = useLanguage();
@@ -45,9 +46,13 @@ export default function Amenities() {
                   <Icon className="w-6 h-6 text-brand-gold" />
                 </div>
                 <h3 className="text-xl font-serif text-brand-white mb-4">{amenity.name[language] || amenity.name['en']}</h3>
-                <p className="text-sm text-brand-ivory/60 font-light leading-relaxed">
+                <p className="text-sm text-brand-ivory/75 font-light leading-relaxed">
                   {amenity.desc[language] || amenity.desc['en']}
                 </p>
+                {/* The Michelin star is invented for this demo hotel */}
+                {amenity.id === 'dining' && (
+                  <p className="mt-3 text-brand-gold"><IllustrativeBadge label={language === 'fr' ? 'Exemple illustratif' : 'Illustrative example'} /></p>
+                )}
               </motion.div>
             );
           })}

@@ -126,38 +126,81 @@ export const testimonials = [
   }
 ];
 
-export const offers = [
+// Special offers are example offers for this demo hotel (shown with an "Example offer" label): prices, dates
+// and terms are illustrative. "Book this offer" fills in the booking search with the offer's stay.
+export interface Offer {
+  id: string;
+  title: { en: string; fr: string };
+  badge: { en: string; fr: string };
+  priceFrom: number;
+  nights: number;
+  // First night of the stay, counted from today: 'next-friday' or a number of days ahead
+  start: 'next-friday' | number;
+  adults: number;
+  children: number;
+  roomType: string;
+  validUntil: { en: string; fr: string };
+  benefits: { en: string; fr: string }[];
+  terms: { en: string; fr: string };
+  image: string;
+}
+
+export const offers: Offer[] = [
   {
     id: 'weekend',
     title: { en: 'Weekend Getaway', fr: 'Escapade le Week-end' },
-    badge: '15% OFF',
+    badge: { en: '15% off', fr: '-15 %' },
+    priceFrom: 680,
+    nights: 2,
+    start: 'next-friday',
+    adults: 2,
+    children: 0,
+    roomType: 'deluxe',
+    validUntil: { en: 'Friday and Saturday arrivals until 31 March', fr: 'Arrivées vendredi et samedi jusqu\'au 31 mars' },
     benefits: [
-      { en: '2 Nights Stay', fr: 'Séjour de 2 Nuits' },
-      { en: 'Complimentary Breakfast', fr: 'Petit-déjeuner Offert' },
-      { en: 'Late Check-out', fr: 'Départ Tardif' }
+      { en: '2 nights in a Deluxe Room', fr: '2 nuits en Chambre Deluxe' },
+      { en: 'Breakfast for two each morning', fr: 'Petit-déjeuner pour deux chaque matin' },
+      { en: 'Late check-out until 14:00', fr: 'Départ tardif jusqu\'à 14h00' },
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop'
+    terms: { en: 'Subject to availability. Free cancellation up to 7 days before arrival.', fr: 'Selon disponibilité. Annulation gratuite jusqu\'à 7 jours avant l\'arrivée.' },
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 'family-pkg',
     title: { en: 'Family Vacation', fr: 'Vacances en Famille' },
-    badge: 'KIDS STAY FREE',
+    badge: { en: 'Kids stay free', fr: 'Enfants gratuits' },
+    priceFrom: 1450,
+    nights: 5,
+    start: 21,
+    adults: 2,
+    children: 2,
+    roomType: 'family',
+    validUntil: { en: 'Stays of 5 nights or more, all year', fr: 'Séjours de 5 nuits ou plus, toute l\'année' },
     benefits: [
-      { en: 'Connecting Rooms', fr: 'Chambres Communicantes' },
-      { en: 'Kids Club Access', fr: 'Accès au Club Enfants' },
-      { en: 'Airport Transfer', fr: 'Transfert Aéroport' }
+      { en: '5 nights in a Family Suite', fr: '5 nuits en Suite Familiale' },
+      { en: 'Kids Club access for under-12s', fr: 'Accès au Club Enfants pour les moins de 12 ans' },
+      { en: 'Return airport transfer', fr: 'Transfert aéroport aller-retour' },
     ],
-    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop'
+    terms: { en: 'Up to 2 children under 12 sharing with 2 adults. Subject to availability.', fr: 'Jusqu\'à 2 enfants de moins de 12 ans partageant avec 2 adultes. Selon disponibilité.' },
+    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 'honeymoon',
     title: { en: 'Honeymoon Package', fr: 'Forfait Lune de Miel' },
-    badge: 'VIP EXPERIENCE',
+    badge: { en: 'VIP experience', fr: 'Expérience VIP' },
+    priceFrom: 2400,
+    nights: 4,
+    start: 30,
+    adults: 2,
+    children: 0,
+    roomType: 'presidential',
+    validUntil: { en: 'Within 12 months of your wedding date', fr: 'Dans les 12 mois suivant votre mariage' },
     benefits: [
-      { en: 'Romantic Setup', fr: 'Mise en place Romantique' },
-      { en: 'Couples Massage', fr: 'Massage en Couple' },
-      { en: 'Private Dinner', fr: 'Dîner Privé' }
+      { en: '4 nights in the Presidential Suite', fr: '4 nuits en Suite Présidentielle' },
+      { en: 'Couples massage (90 min)', fr: 'Massage en duo (90 min)' },
+      { en: 'Private candlelit dinner on the terrace', fr: 'Dîner privé aux chandelles en terrasse' },
     ],
-    image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?q=80&w=2070&auto=format&fit=crop'
-  }
+    terms: { en: 'Proof of marriage date may be requested at check-in.', fr: 'Une preuve de la date du mariage peut être demandée à l\'arrivée.' },
+    image: 'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?q=80&w=1200&auto=format&fit=crop',
+  },
 ];

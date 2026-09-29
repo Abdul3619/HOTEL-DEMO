@@ -55,8 +55,10 @@ export default function Contact() {
               <div className="flex items-start">
                 <MapPin className="w-6 h-6 text-brand-gold mr-6 mt-1 flex-shrink-0" />
                 <div>
+                  {/* Demo hotel: fictional address; the phone number is in a range France reserves for fiction and .example
+                      domains can never be registered, so no real business is contacted. */}
                   <h4 className="text-xl font-serif text-brand-white mb-2">Azure Haven Hotel</h4>
-                  <p className="text-brand-ivory/70 font-light leading-relaxed">
+                  <p className="text-brand-ivory/80 font-light leading-relaxed">
                     123 Luxury Avenue<br />
                     Monte Carlo, 98000<br />
                     Monaco
@@ -68,7 +70,7 @@ export default function Contact() {
                 <Phone className="w-6 h-6 text-brand-gold mr-6 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="text-xl font-serif text-brand-white mb-2">Reservations</h4>
-                  <p className="text-brand-ivory/70 font-light">+33 1 23 45 67 89</p>
+                  <p className="text-brand-ivory/80 font-light">+33 1 99 00 32 10</p>
                 </div>
               </div>
 
@@ -76,25 +78,14 @@ export default function Contact() {
                 <Mail className="w-6 h-6 text-brand-gold mr-6 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="text-xl font-serif text-brand-white mb-2">Email</h4>
-                  <p className="text-brand-ivory/70 font-light">reservations@azurehaven.com</p>
+                  <p className="text-brand-ivory/80 font-light">reservations@azurehaven.example</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-8 border-t border-brand-ivory/10">
-              <div className="w-full h-48 rounded-sm overflow-hidden mb-8 opacity-80 hover:opacity-100 transition-opacity">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d2884.0536413726514!2d7.424426515503831!3d43.73357597911855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cdc26f7b3f8531%3A0x74f7784c3ac49cfc!2sCasino%20de%20Monte-Carlo!5e0!3m2!1sen!2sfr!4v1683220465360!5m2!1sen!2sfr" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0, filter: 'grayscale(1) contrast(1.2) brightness(0.8)' }} 
-                  allowFullScreen={false} 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
 
-              <a href="#contact" onClick={openConcierge} className="inline-flex items-center space-x-3 px-8 py-4 bg-[#25D366] text-white hover:bg-[#128C7E] transition-colors rounded-sm w-full sm:w-auto justify-center">
+              <a href="#contact" onClick={openConcierge} className="inline-flex items-center space-x-3 px-8 py-4 press bg-[#25D366] text-[#0B0B0B] hover:bg-[#1ebe5b] transition-colors rounded-sm w-full sm:w-auto justify-center">
                 <MessageCircle className="w-5 h-5" />
                 <span className="text-sm font-medium tracking-wide uppercase">WhatsApp Concierge</span>
               </a>

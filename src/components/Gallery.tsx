@@ -3,6 +3,7 @@ import { useLanguage } from '../i18n';
 import { galleryImages } from '../data';
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import SmartImg from './SmartImg';
 
 export default function Gallery() {
   const { t, language } = useLanguage();
@@ -35,11 +36,16 @@ export default function Gallery() {
                 index === 0 || index === 3 ? 'md:col-span-2 md:row-span-2' : ''
               }`}
               onClick={() => setSelectedImage(imageObj)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedImage(imageObj); } }}
+              role="button"
+              tabIndex={0}
+              aria-label={imageObj.caption[language]}
             >
               <div className="absolute inset-0 bg-brand-dark/20 z-10 group-hover:bg-transparent transition-colors duration-500" />
-              <img 
-                src={imageObj.src} 
-                alt={imageObj.caption[language]} 
+              <SmartImg
+                src={imageObj.src}
+                alt=""
+                sizes={index === 0 || index === 3 ? '(min-width: 768px) 50vw, 50vw' : '(min-width: 1024px) 25vw, 50vw'}
                 className="w-full h-full object-cover aspect-[4/3] group-hover:scale-110 transition-transform duration-700 ease-out"
               />
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
@@ -52,12 +58,14 @@ export default function Gallery() {
 
       {/* Lightbox */}
       {selectedImage && (
-        <div className="fixed inset-0 z-[100] bg-brand-dark/95 backdrop-blur-md flex flex-col items-center justify-center p-4">
+        <div role="dialog" aria-modal="true" aria-label={selectedImage.caption[language]} className="fixed inset-0 z-[100] bg-brand-dark/95 backdrop-blur-md flex flex-col items-center justify-center p-4">
           <button 
             className="absolute top-8 right-8 text-brand-ivory hover:text-brand-gold transition-colors"
             onClick={() => setSelectedImage(null)}
+            aria-label={language === 'fr' ? 'Fermer' : 'Close'}
+            autoFocus
           >
-            <X className="w-8 h-8" />
+            <X className="w-8 h-8" aria-hidden="true" />
           </button>
           <img src={selectedImage.src} alt={selectedImage.caption[language]} className="max-w-full max-h-[85vh] object-contain shadow-2xl" />
           <p className="text-white mt-6 text-lg font-light tracking-wide">{selectedImage.caption[language]}</p>

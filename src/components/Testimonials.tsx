@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useLanguage } from '../i18n';
 import { testimonials } from '../data';
 import { Star } from 'lucide-react';
+import IllustrativeBadge from './IllustrativeBadge';
 
 export default function Testimonials() {
   const { t, language } = useLanguage();
@@ -19,6 +20,7 @@ export default function Testimonials() {
           >
             {t('testiTitle')}
           </motion.h2>
+          <p className="text-brand-gold mt-4"><IllustrativeBadge label={language === 'fr' ? 'Avis fictifs' : 'Sample reviews'} /></p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -32,14 +34,13 @@ export default function Testimonials() {
               className="bg-[#151515] border border-white/5 p-10 flex flex-col items-center text-center relative rounded-lg"
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <img 
-                  src={testimonial.avatar} 
-                  alt={testimonial.name}
-                  className="w-20 h-20 rounded-full border-2 border-brand-gold object-cover"
-                />
+                {/* Initials instead of stock portraits: these are sample reviews, not real guests */}
+                <div className="w-20 h-20 rounded-full border-2 border-brand-gold bg-[#1d1d1d] flex items-center justify-center font-serif text-2xl text-brand-gold" aria-hidden="true">
+                  {testimonial.name.split(' ').map((w) => w[0]).join('')}
+                </div>
               </div>
               
-              <div className="flex items-center space-x-1 mt-12 mb-6">
+              <div className="flex items-center space-x-1 mt-12 mb-6" role="img" aria-label="5 out of 5 stars">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-gold" />
                 ))}

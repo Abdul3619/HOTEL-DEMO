@@ -1,8 +1,11 @@
 import { useState, type FormEvent } from 'react';
-import { Facebook, Instagram, Twitter, Youtube, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { LEGAL_LINKS } from './LegalDialog';
+import { useLanguage } from '../i18n';
 
 export default function Footer() {
   const [subscribed, setSubscribed] = useState(false);
+  const { language } = useLanguage();
 
   const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,28 +22,14 @@ export default function Footer() {
               <span className="text-gold-gradient">Azure</span>
               <span className="text-[0.4em] tracking-[0.3em] uppercase text-brand-ivory/70">Haven Hotel</span>
             </div>
-            <p className="text-brand-ivory/60 text-sm font-light leading-relaxed mb-8">
+            <p className="text-brand-ivory/75 text-sm font-light leading-relaxed mb-8">
               Experience unparalleled luxury and breathtaking views at our world-class resort. Your perfect escape awaits.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" aria-label="Instagram" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a href="#" aria-label="Facebook" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" aria-label="Twitter" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a href="#" aria-label="Youtube" className="w-10 h-10 border border-brand-ivory/20 flex items-center justify-center text-brand-ivory/60 hover:text-brand-gold hover:border-brand-gold transition-colors rounded-full">
-                <Youtube className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
           <div>
             <h4 className="text-brand-white font-serif text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-4 text-sm font-light text-brand-ivory/60">
+            <ul className="space-y-4 text-sm font-light text-brand-ivory/75">
               <li><a href="#rooms" className="hover:text-brand-gold transition-colors">Our Rooms</a></li>
               <li><a href="#amenities" className="hover:text-brand-gold transition-colors">Amenities</a></li>
               <li><a href="#dining" className="hover:text-brand-gold transition-colors">Dining Experience</a></li>
@@ -51,17 +40,16 @@ export default function Footer() {
 
           <div>
             <h4 className="text-brand-white font-serif text-lg mb-6">Legal</h4>
-            <ul className="space-y-4 text-sm font-light text-brand-ivory/60">
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Cookie Policy</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Cancellation Policy</a></li>
+            <ul className="space-y-4 text-sm font-light text-brand-ivory/75">
+              {LEGAL_LINKS.map((link) => (
+                <li key={link.slug}><a href={`#${link.slug}`} className="hover:text-brand-gold transition-colors">{link[language] || link.en}</a></li>
+              ))}
             </ul>
           </div>
 
           <div>
             <h4 className="text-brand-white font-serif text-lg mb-6">Newsletter</h4>
-            <p className="text-brand-ivory/60 text-sm font-light leading-relaxed mb-4">
+            <p className="text-brand-ivory/75 text-sm font-light leading-relaxed mb-4">
               Subscribe to receive exclusive offers and updates.
             </p>
             <form className="flex flex-col space-y-4" onSubmit={handleSubscribe}>
@@ -82,14 +70,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-brand-ivory/10 flex flex-col md:flex-row justify-between items-center text-xs text-brand-ivory/40">
+        <div className="pt-8 border-t border-brand-ivory/10 flex flex-col md:flex-row justify-between items-center text-xs text-brand-ivory/70">
           <p>&copy; {new Date().getFullYear()} Azure Haven Hotel. All rights reserved. Reviews shown are sample content.</p>
           <a 
             href="https://wa.me/22871606697" 
             target="_blank" 
             rel="noopener noreferrer"
             title="Need a website like this? Contact the developer."
-            className="mt-4 md:mt-0 flex items-center space-x-1.5 text-[13px] text-white/60 hover:text-[#D4AF37] transition-colors duration-300 group"
+            className="mt-4 md:mt-0 flex items-center space-x-1.5 text-[13px] text-white/75 underline hover:text-[#D4AF37] transition-colors duration-300 group"
           >
             <span>Built by Abdulwahab Abdullahi</span>
             <Sparkles className="w-3 h-3 opacity-70 group-hover:opacity-100" />

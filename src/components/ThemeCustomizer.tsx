@@ -26,6 +26,23 @@ export default function ThemeCustomizer({ onOpenAdmin }: ThemeCustomizerProps) {
 
   const [activeColor, setActiveColor] = useState(colors[0].value);
   const [activeFont, setActiveFont] = useState(fonts[0]);
+  const [themeRestored, setThemeRestored] = useState(false);
+
+  // The chosen colour and font pairing are remembered on this device.
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('azure:theme') || 'null');
+      if (saved && colors.some((c) => c.value === saved.color)) setActiveColor(saved.color);
+      const font = saved && fonts.find((f) => f.name === saved.font);
+      if (font) setActiveFont(font);
+    } catch { /* storage unavailable */ }
+    setThemeRestored(true);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!themeRestored) return;
+    try { localStorage.setItem('azure:theme', JSON.stringify({ color: activeColor, font: activeFont.name })); } catch { /* ignore */ }
+  }, [themeRestored, activeColor, activeFont]);
 
   useEffect(() => {
     // Add font imports dynamically
@@ -54,7 +71,7 @@ export default function ThemeCustomizer({ onOpenAdmin }: ThemeCustomizerProps) {
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 left-6 lg:bottom-10 lg:left-[18rem] z-[60] bg-brand-gold text-brand-dark px-4 py-3 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2"
       >
-        <Settings className="w-5 h-5 animate-[spin_4s_linear_infinite]" />
+        <Settings className="w-5 h-5 animate-[spin_4s_linear_infinite] motion-reduce:animate-none" aria-hidden="true" />
         <span className="text-xs font-bold uppercase tracking-wider">Demo Tools</span>
       </button>
 

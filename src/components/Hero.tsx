@@ -118,6 +118,7 @@ export default function Hero() {
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-2 text-[#D9D9D9]/70" />
                   <select 
+                    aria-label={t('guests')}
                     value={searchData.adults} 
                     onChange={(e) => updateSearchData({ adults: parseInt(e.target.value) })}
                     className="bg-transparent text-white focus:outline-none appearance-none"

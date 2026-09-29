@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { rooms } from '../data';
 
 export interface SearchData {
@@ -29,6 +29,31 @@ const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [searchData, setSearchData] = useState<SearchData>(defaultSearchData);
+  const [restored, setRestored] = useState(false);
+
+  // The booking search is remembered on this device (dates only while still in the future).
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('azure:search') || 'null') as Partial<SearchData> | null;
+      if (saved) {
+        const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+        const datesOk = typeof saved.checkIn === 'string' && saved.checkIn >= today && typeof saved.checkOut === 'string' && saved.checkOut > saved.checkIn;
+        setSearchData((prev) => ({
+          ...prev,
+          ...(datesOk ? { checkIn: saved.checkIn, checkOut: saved.checkOut } : {}),
+          adults: Number.isInteger(saved.adults) ? saved.adults! : prev.adults,
+          children: Number.isInteger(saved.children) ? saved.children! : prev.children,
+          roomType: typeof saved.roomType === 'string' && (saved.roomType === 'all' || rooms.some((r) => r.id === saved.roomType)) ? saved.roomType : prev.roomType,
+        }));
+      }
+    } catch { /* storage unavailable or corrupt */ }
+    setRestored(true);
+  }, []);
+
+  useEffect(() => {
+    if (!restored) return;
+    try { localStorage.setItem('azure:search', JSON.stringify(searchData)); } catch { /* ignore */ }
+  }, [restored, searchData]);
 
   const updateSearchData = (data: Partial<SearchData>) => {
     setSearchData((prev) => ({ ...prev, ...data }));

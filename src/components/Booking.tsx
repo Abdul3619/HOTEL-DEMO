@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../i18n';
 import { useBooking } from '../context/BookingContext';
 import { Calendar, Users, CheckCircle2 } from 'lucide-react';
+import { unsplashSrcSet } from './SmartImg';
 
 // yyyy-mm-dd for today in the visitor's local time (matches <input type="date"> values)
 export function todayInputValue() {
@@ -182,7 +183,7 @@ export default function Booking() {
                     {availableRooms.map(room => (
                       <div key={room.id} className="bg-[#151515] border border-white/5 rounded-lg flex flex-col md:flex-row overflow-hidden group">
                         <div className="md:w-1/3 h-64 md:h-auto overflow-hidden">
-                          <img src={room.image} alt={room.name[language] || room.name['en']} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          <img src={room.image} srcSet={unsplashSrcSet(room.image)} sizes="(min-width: 768px) 33vw, 100vw" loading="lazy" decoding="async" alt={room.name[language] || room.name['en']} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                         </div>
                         <div className="p-8 md:w-2/3 flex flex-col justify-between">
                           <div>

@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { useLanguage } from '../i18n';
+import { unsplashSrcSet } from './SmartImg';
 
 export default function Dining() {
   const { t } = useLanguage();
@@ -15,8 +16,12 @@ export default function Dining() {
           className="w-full h-full"
         >
           <img 
-            src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop" 
-            alt="Fine Dining" 
+            src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=75&w=1600&auto=format&fit=crop" 
+            srcSet={unsplashSrcSet('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=75&w=1600&auto=format&fit=crop')}
+            sizes="100vw"
+            loading="lazy"
+            decoding="async"
+            alt="" 
             className="w-full h-full object-cover"
           />
         </motion.div>
